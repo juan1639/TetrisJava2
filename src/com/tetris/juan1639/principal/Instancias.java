@@ -28,38 +28,35 @@ public class Instancias {
 			NextPieza verNextPieza,
 			PlantillaPiezasFactory piezaFactory) {
 		
-		if (settings.getOtraPieza()) {
+        settings.setOtraPieza(false);
+        
+        Integer x = settings.X_INICIAL;
+        Integer y = settings.Y_INICIAL;
+        Integer col = settings.TILES_WIDTH;
+        Integer filas = settings.TILES_HEIGHT;
 
-            settings.setOtraPieza(false);
-            
-            Integer x = settings.X_INICIAL;
-            Integer y = settings.Y_INICIAL;
-            Integer col = settings.TILES_WIDTH;
-            Integer filas = settings.TILES_HEIGHT;
+        Integer nro_rnd = settings.getNextPieza();
+        Integer elegida = nro_rnd;
 
-            Integer nro_rnd = settings.getNextPieza();
-            Integer elegida = nro_rnd;
+        // ---------------------------------------------------
+        // 	N E X T  -  P I E Z A  (Ver)
+        // ---------------------------------------------------
+        nro_rnd = (int) (Math.random() * 7);
+        
+        settings.setNextPieza(nro_rnd);
+        
+        verNextPieza = new NextPieza(
+        		settings.X_NEXT, settings.Y_NEXT, piezaFactory.getPieza().get(nro_rnd), Colores.PIEZAS[nro_rnd]
+        );
 
-            // ---------------------------------------------------
-            // 	N E X T  -  P I E Z A  (Ver)
-            // ---------------------------------------------------
-            nro_rnd = (int) (Math.random() * 7);
-            
-            settings.setNextPieza(nro_rnd);
-            
-            verNextPieza = new NextPieza(
-            		settings.X_NEXT, settings.Y_NEXT, piezaFactory.getPieza().get(nro_rnd), Colores.PIEZAS[nro_rnd]
-            );
-
-            // ---------------------------------------------------
-            //	 P I E Z A  (Instanciar)
-            //	
-            // ---------------------------------------------------
-            pieza = new Pieza(
-            		x, y, piezaFactory.getPieza().get(elegida), col, filas, Colores.PIEZAS[elegida], settings
-            );
-        }
-		
+        // ---------------------------------------------------
+        //	 P I E Z A  (Instanciar)
+        //	
+        // ---------------------------------------------------
+        pieza = new Pieza(
+        		x, y, piezaFactory.getPieza().get(elegida), col, filas, Colores.PIEZAS[elegida], settings
+        );
+        
 		return new Object[] {verNextPieza, pieza};
 	}
 }

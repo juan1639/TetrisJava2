@@ -84,8 +84,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		Instancias.instanciarMatrizFondo(settings.tileFondo, settings.TILES_HEIGHT, settings.TILES_WIDTH,
 				settings.TILE_X, settings.TILE_Y);
 		
-		piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
-
+		if (settings.getOtraPieza()) {
+			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
+		}
+		
 		timer = new Timer((Integer) (1000 / settings.FPS), this);
 		timer.start();
 		timer.setRepeats(true);
@@ -129,6 +131,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		Pieza.gravedadPiezas(settings);
 		pieza.actualiza(settings);
 		
+		if (settings.getOtraPieza()) {
+			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
+		}
+		
 		repaint();
 	}
 
@@ -139,7 +145,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 			int key = e.getKeyCode();
 
-			if (!settings.estado.isEnJuego()) {
+			if (settings.estado.isEnJuego()) {
 
 				if (key == KeyEvent.VK_LEFT) {
 					resetControles(false, settings);

@@ -181,8 +181,8 @@ public class Settings {
 	// ====================================================================
 	public class Estado {
 
-		private Boolean preJuego = true;
-		private Boolean enJuego = false;
+		private Boolean preJuego = false;
+		private Boolean enJuego = true;
 		private Boolean nivelSuperado = false;
 		private Boolean gameOver = false;
 

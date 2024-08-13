@@ -68,9 +68,10 @@ public class Pieza {
 	
 	public void actualiza(Settings sett) {
 
-		/*
-		 * if (!sett.estado.isEnJuego()) { return; }
-		 */
+		
+		if (!sett.estado.isEnJuego()) {
+			return;
+		}
 		
 		// =================================================
 		if (sett.controles.isIzquierda()) {
