@@ -16,7 +16,7 @@ public class Fondo {
 	private int alto;
 	private Boolean valor;
 
-	public Fondo(int columna, int fila, int ancho, int alto) {
+	public Fondo(Integer columna, Integer fila, Integer ancho, Integer alto) {
 
 		this.columna = columna;
 		this.fila = fila;
@@ -40,13 +40,12 @@ public class Fondo {
 		if (this.valor) {
 
 			g.setColor(fondoRastroPieza);
-            g.fillRect(x, y, this.ancho, this.alto);
 
 		} else {
-
 			g.setColor(fondoNada);
-            g.fillRect(x, y, this.ancho, this.alto);
 		}
+		
+		g.fillRect(x, y, this.ancho, this.alto);
 	}
 
 	public static void check_lineDone(Settings sett) {
@@ -55,11 +54,11 @@ public class Fondo {
 		 * if (!sett.isCheckeando_matriz()) { return; }
 		 */
 
-		int lineas_alavez = 0;
-		int filas = sett.TILES_HEIGHT;
-		int columnas = sett.TILES_WIDTH;
+		Integer lineas_alavez = 0;
+		Integer filas = sett.TILES_HEIGHT;
+		Integer columnas = sett.TILES_WIDTH;
 
-		for (int i = filas - 1; i > 0; i --) {
+		for (Integer i = filas - 1; i > 0; i --) {
 
 			Fondo[] matrizLinea = sett.tileFondo[i];
 
@@ -67,7 +66,7 @@ public class Fondo {
 
 			while (hasta_cuatro) {
 
-				int contador_cols = 0;
+				Integer contador_cols = 0;
 
 				for (Fondo cols: matrizLinea) {
 

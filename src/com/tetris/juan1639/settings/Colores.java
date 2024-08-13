@@ -12,7 +12,7 @@ public class Colores {
 		{74, 191, 240, 52, 182, 237}
 	};
 
-	public static final int[] MARCADORES = {
+	public static final Integer[] MARCADORES = {
 			240, 228, 0,
 			255, 206, 36,
 			255, 130, 47

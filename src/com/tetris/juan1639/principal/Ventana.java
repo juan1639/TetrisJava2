@@ -16,6 +16,9 @@ import javax.swing.Timer;
 
 import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
+import com.tetris.juan1639.logicaPieza.NextPieza;
+import com.tetris.juan1639.logicaPieza.Pieza;
+import com.tetris.juan1639.settings.PlantillaPiezasFactory;
 import com.tetris.juan1639.settings.Settings;
 
 public class Ventana extends JPanel implements ActionListener, IResetControlesEstados {
@@ -24,6 +27,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 	private Timer timer;
 	private Sonidos sonido = new Sonidos();
+	
+	private Pieza pieza;
+	private NextPieza verNextPieza;
+	private PlantillaPiezasFactory piezaFactory;
 
 	private Settings settings;
 
@@ -35,7 +42,8 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	private void inicializa() {
 
 		settings = Settings.getInstancia();
-
+		piezaFactory = PlantillaPiezasFactory.getInstancia();
+		
 		addKeyListener(new Controles());
 
 		Integer[] rgb = settings.COLOR_FONDOS;
@@ -74,8 +82,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 		Instancias.instanciarMatrizFondo(settings.tileFondo, settings.TILES_HEIGHT, settings.TILES_WIDTH,
 				settings.TILE_X, settings.TILE_Y);
+		
+		Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
 
-		timer = new Timer((int) (1000 / settings.FPS), this);
+		timer = new Timer((Integer) (1000 / settings.FPS), this);
 		timer.start();
 		timer.setRepeats(true);
 	}
@@ -88,13 +98,9 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	}
 
 	private void renderiza(Graphics g) {
-
-		// g.setColor(Color.BLACK);
-		// g.drawRect(0, 0, settings.TILES_WIDTH * settings.TILE_X,
-		// settings.TILES_HEIGHT * settings.TILE_Y);
-
-		for (int i = 0; i < settings.TILES_HEIGHT; i++) {
-			for (int ii = 0; ii < settings.TILES_WIDTH; ii++) {
+		
+		for (Integer i = 0; i < settings.TILES_HEIGHT; i++) {
+			for (Integer ii = 0; ii < settings.TILES_WIDTH; ii++) {
 
 				settings.tileFondo[i][ii].dibuja(g);
 			}

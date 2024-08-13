@@ -16,10 +16,106 @@ public class Settings {
 	
 	public final Fondo[][] tileFondo = new Fondo[TILES_HEIGHT][TILES_WIDTH];
 	
+	public final Integer X_INICIAL = 7;
+	public final Integer Y_INICIAL = 2;
+	public final Integer X_NEXT = 19;
+	public final Integer Y_NEXT = 16;
+	
+	public final String PIEZAS = "zsljoit";
+	
+	public final Integer TIEMPO_PAUSA_REJUGAR = 120;
+	
 	public HashMap<String, Integer> scores = new HashMap<>();
 	
+	private Integer[] gravedad = {
+		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
+		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
+	};
+
+	private Integer[][] goal_lines = {
+		{0, 3}, {0, 7}, {0, 12},
+		{0, 15}, {0, 20}, {0, 24},
+		{0, 32}, {0, 35}, {0, 40},
+		{0, 44}, {0, 47}, {0, 50},
+		{0, 55}, {0, 60}, {0, 70},
+		{0, 75}, {0, 80}, {0, 85},
+		{0, 90}, {0, 95}, {0, 100}
+	};
+
+	private Integer incremento_dificultad;
+	private Boolean checkeandoMatriz;
+	private Integer nextPieza = 1;
+	private Boolean otraPieza = true;
+	
+	private Integer pausaRejugar;
+	private Boolean fireWorks = false;
+	
+	public Integer[] getGravedad() {
+		return gravedad;
+	}
+
+	public void setGravedad(Integer[] gravedad) {
+		this.gravedad = gravedad;
+	}
+
+	public Integer[][] getGoal_lines() {
+		return goal_lines;
+	}
+
+	public void setGoal_lines(Integer[][] goal_lines) {
+		this.goal_lines = goal_lines;
+	}
+
+	public Integer getIncremento_dificultad() {
+		return incremento_dificultad;
+	}
+
+	public void setIncremento_dificultad(Integer incremento_dificultad) {
+		this.incremento_dificultad = incremento_dificultad;
+	}
+
+	public Boolean getCheckeandoMatriz() {
+		return checkeandoMatriz;
+	}
+
+	public void setCheckeandoMatriz(Boolean checkeando_matriz) {
+		this.checkeandoMatriz = checkeando_matriz;
+	}
+
+	public Integer getNextPieza() {
+		return nextPieza;
+	}
+
+	public void setNextPieza(Integer next_pieza) {
+		this.nextPieza = next_pieza;
+	}
+
+	public Boolean getOtraPieza() {
+		return otraPieza;
+	}
+
+	public void setOtraPieza(Boolean otraPieza) {
+		this.otraPieza = otraPieza;
+	}
+
+	public Integer getPausaRejugar() {
+		return pausaRejugar;
+	}
+
+	public void setPausaRejugar(Integer pausa_rejugar) {
+		this.pausaRejugar = pausa_rejugar;
+	}
+
+	public Boolean getFireWorks() {
+		return fireWorks;
+	}
+
+	public void setFireWorks(Boolean fireWorks) {
+		this.fireWorks = fireWorks;
+	}
+
 	// ============================================================
-	// CONSTRUCTOR (SINGLETON)
+	// CONSTRUCTOR PRINCIPAL 'Settings' (SINGLETON)
 	// 
 	// ------------------------------------------------------------
 	private Settings() {}
@@ -69,7 +165,7 @@ public class Settings {
 			this.abajo = abajo;
 		}
 		
-		public Boolean getRotar() {
+		public Boolean isRotar() {
 			return rotar;
 		}
 
