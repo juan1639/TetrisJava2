@@ -24,13 +24,15 @@ public class Fondo {
 		this.alto = alto;
 		this.valor = false;
 		
+		//if (this.fila == 3 && this.columna == 3) this.valor = true;
+		
 		sonido = new Sonidos();
 	}
 
 	public void dibuja(Graphics g) {
 
-		Color fondoNada = new Color(70, 62, 4);
-		Color fondoRastroPieza = new Color(128, 128, 128);
+		Color fondoNada = new Color(72, 71, 70);
+		Color fondoRastroPieza = new Color(109, 99, 10);
 
 		int x = this.columna * this.ancho;
 		int y = this.fila * this.alto;
@@ -93,6 +95,7 @@ public class Fondo {
 
 		// **** esta 1ra infolineas NOVALE *******
 		//instancia_infoLineas(lineas_alavez);
+		// ***************************************
 		//sett.setCheckeando_matriz(false);
 	}
 
