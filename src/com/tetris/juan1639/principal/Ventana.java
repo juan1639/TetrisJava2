@@ -31,9 +31,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	private Pieza pieza;
 	private NextPieza verNextPieza;
 	private PlantillaPiezasFactory piezaFactory;
+	private Object[] piezas;
 
 	private Settings settings;
-
+	
 	public Ventana() {
 
 		inicializa();
@@ -70,7 +71,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		add(boton3);
 		add(boton4);
 		add(boton5);
-		add(boton6);
+		//add(boton6);
 
 		comenzar();
 	}
@@ -83,7 +84,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		Instancias.instanciarMatrizFondo(settings.tileFondo, settings.TILES_HEIGHT, settings.TILES_WIDTH,
 				settings.TILE_X, settings.TILE_Y);
 		
-		Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
+		piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
 
 		timer = new Timer((Integer) (1000 / settings.FPS), this);
 		timer.start();
@@ -105,15 +106,29 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 				settings.tileFondo[i][ii].dibuja(g);
 			}
 		}
-
+		
+		pieza = (Pieza) piezas[1];
+		verNextPieza = (NextPieza) piezas[0];
+		
+		if (pieza != null) {
+			pieza.dibuja(g, settings.TILE_X, settings.TILE_Y);
+		}
+		
+		if (verNextPieza != null) {
+			verNextPieza.dibuja(g, settings.TILE_X, settings.TILE_Y);
+		}
+		
 		Toolkit.getDefaultToolkit().sync();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// System.out.println("running...");
-
+		//System.out.println("running...");
+		
+		Pieza.gravedadPiezas(settings);
+		pieza.actualiza(settings);
+		
 		repaint();
 	}
 
@@ -124,7 +139,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 			int key = e.getKeyCode();
 
-			if (settings.estado.isEnJuego()) {
+			if (!settings.estado.isEnJuego()) {
 
 				if (key == KeyEvent.VK_LEFT) {
 					resetControles(false, settings);

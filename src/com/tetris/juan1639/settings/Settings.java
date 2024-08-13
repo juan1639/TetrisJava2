@@ -42,14 +42,18 @@ public class Settings {
 		{0, 90}, {0, 95}, {0, 100}
 	};
 
-	private Integer incremento_dificultad;
-	private Boolean checkeandoMatriz;
-	private Integer nextPieza = 1;
+	private Integer incrementoDificultad = 0;
+	private Boolean checkeandoMatriz = false;
+	private Integer nextPieza = 6;
 	private Boolean otraPieza = true;
 	
-	private Integer pausaRejugar;
+	private Integer pausaRejugar = 99;
 	private Boolean fireWorks = false;
 	
+	// -----------------------------------------------------------
+	//	 G E T T E R S  &  S E T T E R S
+	// 	
+	// -----------------------------------------------------------
 	public Integer[] getGravedad() {
 		return gravedad;
 	}
@@ -66,12 +70,12 @@ public class Settings {
 		this.goal_lines = goal_lines;
 	}
 
-	public Integer getIncremento_dificultad() {
-		return incremento_dificultad;
+	public Integer getIncrementoDificultad() {
+		return incrementoDificultad;
 	}
 
-	public void setIncremento_dificultad(Integer incremento_dificultad) {
-		this.incremento_dificultad = incremento_dificultad;
+	public void setIncrementoDificultad(Integer incremento_dificultad) {
+		this.incrementoDificultad = incremento_dificultad;
 	}
 
 	public Boolean getCheckeandoMatriz() {

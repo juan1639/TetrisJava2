@@ -22,7 +22,7 @@ public class Instancias {
         return tileFondo;
 	}
 	
-	public static Pieza instanciarPieza(
+	public static Object[] instanciarPieza(
 			Settings settings,
 			Pieza pieza,
 			NextPieza verNextPieza,
@@ -60,6 +60,6 @@ public class Instancias {
             );
         }
 		
-		return pieza;
+		return new Object[] {verNextPieza, pieza};
 	}
 }

@@ -68,9 +68,9 @@ public class Pieza {
 	
 	public void actualiza(Settings sett) {
 
-		if (!sett.estado.isEnJuego()) {
-			return;
-		}
+		/*
+		 * if (!sett.estado.isEnJuego()) { return; }
+		 */
 		
 		// =================================================
 		if (sett.controles.isIzquierda()) {
@@ -172,14 +172,14 @@ public class Pieza {
 		}
 	}
 
-	public static void gravedad_piezas(Settings sett) {
+	public static void gravedadPiezas(Settings sett) {
 
 		Integer[] gravedad = sett.getGravedad();
 		// ***********************************************
         //Integer nivel = sett.getNivel();
 		Integer nivel = 1;
 		// ***********************************************
-        Integer contador = sett.getIncremento_dificultad();
+        Integer contador = sett.getIncrementoDificultad();
         contador ++;
 
         if (contador >= gravedad[nivel]) {
@@ -187,9 +187,9 @@ public class Pieza {
             sett.controles.setAbajo(true);
         }
 
-        sett.setIncremento_dificultad(contador);
+        sett.setIncrementoDificultad(contador);
 	}
-
+	
 	// =======================================================================
 	// 	G E T T E R S  &  S E T T E R S
 	// 	
