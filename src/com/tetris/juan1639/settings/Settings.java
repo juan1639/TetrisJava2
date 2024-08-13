@@ -1,13 +1,12 @@
 package com.tetris.juan1639.settings;
 
-import java.util.HashMap;
-
 import com.tetris.juan1639.logicaArrayFondo.Fondo;
 
 public class Settings {
 	
 	public final Integer FPS = 60;
 	public final Integer[] COLOR_FONDOS = { 153, 154, 155, 72, 72, 72 };
+	public final Integer SIZE_TXT_NUEVAPARTIDA = 32;
 	
 	public final Integer TILE_X = 30;
 	public final Integer TILE_Y = 30;
@@ -25,14 +24,16 @@ public class Settings {
 	
 	public final Integer TIEMPO_PAUSA_REJUGAR = 120;
 	
-	public HashMap<String, Integer> scores = new HashMap<>();
+	private Integer lineas = 0;
+	private Integer nivel = 1;
+	private Integer hiScore = 27;
 	
 	private Integer[] gravedad = {
 		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
 		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1
 	};
 
-	private Integer[][] goal_lines = {
+	private Integer[][] levelUpLines = {
 		{0, 3}, {0, 7}, {0, 12},
 		{0, 15}, {0, 20}, {0, 24},
 		{0, 32}, {0, 35}, {0, 40},
@@ -54,20 +55,45 @@ public class Settings {
 	//	 G E T T E R S  &  S E T T E R S
 	// 	
 	// -----------------------------------------------------------
+	
 	public Integer[] getGravedad() {
 		return gravedad;
+	}
+
+	public Integer getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(Integer lineas) {
+		this.lineas = lineas;
+	}
+
+	public Integer getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(Integer nivel) {
+		this.nivel = nivel;
+	}
+
+	public Integer getHiScore() {
+		return hiScore;
+	}
+
+	public void setHiScore(Integer hiScore) {
+		this.hiScore = hiScore;
 	}
 
 	public void setGravedad(Integer[] gravedad) {
 		this.gravedad = gravedad;
 	}
 
-	public Integer[][] getGoal_lines() {
-		return goal_lines;
+	public Integer[][] getLevelUpLines() {
+		return levelUpLines;
 	}
 
-	public void setGoal_lines(Integer[][] goal_lines) {
-		this.goal_lines = goal_lines;
+	public void setLevelUpLines(Integer[][] goal_lines) {
+		this.levelUpLines = goal_lines;
 	}
 
 	public Integer getIncrementoDificultad() {

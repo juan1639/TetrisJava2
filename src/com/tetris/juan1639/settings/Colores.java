@@ -13,11 +13,12 @@ public class Colores {
 	};
 
 	public static final Integer[] MARCADORES = {
-			240, 228, 0,
-			255, 206, 36,
-			255, 130, 47
+			234, 235, 236,
+			245, 235, 195,
+			224, 225, 226
 	};
 	public static final Integer[] GAMEOVER = {245, 120, 47};
 	public static final Integer[] TITULO = {155, 245, 9};
-	public static final Integer[] FONDO = {143, 127, 9};
+	public static final Integer[] FONDO = {143, 127, 9};{}
+	public static final Integer[] TXT_NUEVA_PARTIDA = {21, 128, 196};
 }

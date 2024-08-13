@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 public class NextPieza {
 
-	private Integer[] colorAreaNextPieza = {115, 103, 9, 220, 200, 15};
+	private Integer[] colorAreaNextPieza = {89, 89, 89, 182, 183, 184};
 
 	private Integer x;
 	private Integer y;

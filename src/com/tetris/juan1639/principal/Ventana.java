@@ -2,6 +2,7 @@ package com.tetris.juan1639.principal;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -10,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -18,6 +21,8 @@ import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
 import com.tetris.juan1639.logicaPieza.NextPieza;
 import com.tetris.juan1639.logicaPieza.Pieza;
+import com.tetris.juan1639.marcadores.Marcadores;
+import com.tetris.juan1639.settings.Colores;
 import com.tetris.juan1639.settings.PlantillaPiezasFactory;
 import com.tetris.juan1639.settings.Settings;
 
@@ -27,14 +32,19 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 	private Timer timer;
 	private Sonidos sonido = new Sonidos();
-	
+
 	private Pieza pieza;
 	private NextPieza verNextPieza;
 	private PlantillaPiezasFactory piezaFactory;
 	private Object[] piezas;
 
+	private Marcadores lineas;
+	private Marcadores nivel;
+	private Marcadores hi;
+	private Object[] marcadores;
+
 	private Settings settings;
-	
+
 	public Ventana() {
 
 		inicializa();
@@ -44,35 +54,19 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 		settings = Settings.getInstancia();
 		piezaFactory = PlantillaPiezasFactory.getInstancia();
-		
+
 		addKeyListener(new Controles());
 
 		Integer[] rgb = settings.COLOR_FONDOS;
 		setBackground(new Color(rgb[0], rgb[1], rgb[2]));
 
 		setFocusable(true);
-		setPreferredSize(
-				new Dimension(settings.TILE_X * settings.TILES_WIDTH * 2, settings.TILE_Y * settings.TILES_HEIGHT));
 
-		GridLayout miFlowLayout = new GridLayout(3, 2, 9, 9);
-		setLayout(miFlowLayout);
-
-		JButton boton1 = new JButton("Botón 1");
-		boton1.setVisible(false);
-		JButton boton2 = new JButton("Botón 2");
-		JButton boton3 = new JButton("Botón 3");
-		boton3.setVisible(false);
-		JButton boton4 = new JButton("Botón 4");
-		JButton boton5 = new JButton("Botón 5");
-		boton5.setVisible(false);
-		JButton boton6 = new JButton("Botón 6");
-		add(boton1);
-		add(boton2);
-		add(boton3);
-		add(boton4);
-		add(boton5);
-		//add(boton6);
-
+		setPreferredSize(new Dimension(settings.TILE_X * settings.TILES_WIDTH * 2,
+				settings.TILE_Y * settings.TILES_HEIGHT + settings.TILE_Y));
+		
+		crearBotonInicio();
+		
 		comenzar();
 	}
 
@@ -83,11 +77,13 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 		Instancias.instanciarMatrizFondo(settings.tileFondo, settings.TILES_HEIGHT, settings.TILES_WIDTH,
 				settings.TILE_X, settings.TILE_Y);
-		
+
 		if (settings.getOtraPieza()) {
 			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
 		}
-		
+
+		marcadores = Instancias.instanciarMarcadores(settings, lineas, nivel, hi);
+
 		timer = new Timer((Integer) (1000 / settings.FPS), this);
 		timer.start();
 		timer.setRepeats(true);
@@ -101,40 +97,48 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	}
 
 	private void renderiza(Graphics g) {
-		
+
 		for (Integer i = 0; i < settings.TILES_HEIGHT; i++) {
 			for (Integer ii = 0; ii < settings.TILES_WIDTH; ii++) {
 
 				settings.tileFondo[i][ii].dibuja(g);
 			}
 		}
-		
+
 		pieza = (Pieza) piezas[1];
 		verNextPieza = (NextPieza) piezas[0];
-		
+
 		if (pieza != null) {
 			pieza.dibuja(g, settings.TILE_X, settings.TILE_Y);
 		}
-		
+
 		if (verNextPieza != null) {
 			verNextPieza.dibuja(g, settings.TILE_X, settings.TILE_Y);
 		}
-		
+
+		lineas = (Marcadores) marcadores[0];
+		nivel = (Marcadores) marcadores[1];
+		hi = (Marcadores) marcadores[2];
+
+		lineas.dibuja(g, settings.getLineas(), this);
+		nivel.dibuja(g, settings.getNivel(), this);
+		hi.dibuja(g, settings.getHiScore(), this);
+
 		Toolkit.getDefaultToolkit().sync();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		//System.out.println("running...");
-		
+		// System.out.println("running...");
+
 		Pieza.gravedadPiezas(settings);
 		pieza.actualiza(settings);
-		
+
 		if (settings.getOtraPieza()) {
 			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
 		}
-		
+
 		repaint();
 	}
 
@@ -171,6 +175,37 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			if (key == KeyEvent.VK_ESCAPE) {
 				Toolkit.getDefaultToolkit().beep();
 				System.exit(0);
+			}
+		}
+	}
+	
+	private void crearBotonInicio() {
+		
+		Integer[] rgb;
+		JLabel[] layout = new JLabel[12];
+		JButton botonInicio;
+		
+		rgb = Colores.TXT_NUEVA_PARTIDA;
+		
+		GridLayout miFlowLayout = new GridLayout(6, 2, 2, 2);
+		setLayout(miFlowLayout);
+		
+		for (int i = 0; i < 12; i ++) {
+			
+			if (i == 1) {
+				
+				botonInicio = new JButton();
+				botonInicio.setText("Nueva Partida");
+				botonInicio.setFont(new Font("arial", Font.BOLD, settings.SIZE_TXT_NUEVAPARTIDA));
+				botonInicio.setEnabled(true);
+				botonInicio.setFocusable(false);
+				botonInicio.setForeground(new Color(rgb[0], rgb[1], rgb[2]));
+				botonInicio.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1, true));
+				add(botonInicio);
+				
+			} else {
+				layout[i] = new JLabel();
+				add(layout[i]);
 			}
 		}
 	}

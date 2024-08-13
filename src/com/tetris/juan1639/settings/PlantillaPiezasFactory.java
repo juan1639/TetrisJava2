@@ -60,16 +60,9 @@ public class PlantillaPiezasFactory {
 	// 
 	// -------------------------------------------------------------------
 	private PlantillaPiezasFactory() {
-
-		this.z = z;
-		this.s = s;
-		this.l = l;
-		this.j = j;
-		this.o = o;
-		this.i = i;
-		this.t = t;
-
+		
 		this.pieza = pieza;
+		
 		this.pieza.add(this.z);
 		this.pieza.add(this.s);
 		this.pieza.add(this.l);

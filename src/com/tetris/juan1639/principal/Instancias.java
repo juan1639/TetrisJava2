@@ -1,8 +1,11 @@
 package com.tetris.juan1639.principal;
 
+import java.awt.Color;
+
 import com.tetris.juan1639.logicaArrayFondo.Fondo;
 import com.tetris.juan1639.logicaPieza.NextPieza;
 import com.tetris.juan1639.logicaPieza.Pieza;
+import com.tetris.juan1639.marcadores.Marcadores;
 import com.tetris.juan1639.settings.Colores;
 import com.tetris.juan1639.settings.PlantillaPiezasFactory;
 import com.tetris.juan1639.settings.Settings;
@@ -40,6 +43,7 @@ public class Instancias {
 
         // ---------------------------------------------------
         // 	N E X T  -  P I E Z A  (Ver)
+        //	
         // ---------------------------------------------------
         nro_rnd = (int) (Math.random() * 7);
         
@@ -58,5 +62,20 @@ public class Instancias {
         );
         
 		return new Object[] {verNextPieza, pieza};
+	}
+	
+	public static Object[] instanciarMarcadores(
+			Settings settings, Marcadores lineas, Marcadores nivel, Marcadores hi) {
+		
+		int[] argsInt = Marcadores.argsInt_instanciaMarcadores(settings);
+        String[] argsTxt = Marcadores.argsString_instanciaMarcadores();
+
+        Integer[] rgb = Colores.MARCADORES;
+        
+        lineas = new Marcadores(0, argsInt, argsTxt, new Color(rgb[0], rgb[1], rgb[2]));
+        nivel = new Marcadores(1, argsInt, argsTxt, new Color(rgb[3], rgb[4], rgb[5]));
+        hi = new Marcadores(2, argsInt, argsTxt, new Color(rgb[6], rgb[7], rgb[8]));
+        
+        return new Object[] {lineas, nivel, hi};
 	}
 }
