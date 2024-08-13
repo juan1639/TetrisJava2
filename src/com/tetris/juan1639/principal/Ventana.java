@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
 import com.tetris.juan1639.settings.Settings;
 
@@ -18,8 +19,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	
 	private static final long serialVersionUID = 6133593608232968591L;
 	
-	private Settings settings;
 	private Timer timer;
+	private Sonidos sonido = new Sonidos();
+	
+	private Settings settings;
 	
 	public Ventana() {
 		
@@ -29,16 +32,15 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	private void inicializa() {
 		
 		settings = Settings.getInstancia();
-		//sonido = new Sonidos();
 		
 		addKeyListener(new Controles());
 
 		Integer[] rgb = settings.COLOR_FONDOS;
-		setBackground(new Color(rgb[3], rgb[4], rgb[5]));
+		setBackground(new Color(rgb[0], rgb[1], rgb[2]));
 		
 		setFocusable(true);
 		setPreferredSize(new Dimension(
-				settings.TILE_WIDTH * settings.TILES_WIDTH * 2, settings.TILE_HEIGHT * settings.TILES_HEIGHT)
+				settings.TILE_X * settings.TILES_WIDTH * 2, settings.TILE_Y * settings.TILES_HEIGHT)
 		);
 		
 		/*
@@ -58,8 +60,13 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	
 	private void comenzar() {
 		
-		//sonido.cargarAudio(settings.urlaudio.getIntermision());
-		//sonido.playSonido();
+		sonido.cargarAudio(settings.urlaudio.getGameOver());
+		sonido.playSonido();
+		
+		Instancias.instanciarMatrizFondo(
+				settings.tileFondo,
+				settings.TILES_WIDTH, settings.TILES_HEIGHT, settings.TILE_X, settings.TILE_Y
+		);
 
 		timer = new Timer((int) (1000 / settings.FPS), this);
 		timer.start();

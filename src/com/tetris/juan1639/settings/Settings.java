@@ -2,15 +2,19 @@ package com.tetris.juan1639.settings;
 
 import java.util.HashMap;
 
+import com.tetris.juan1639.logicaArrayFondo.Fondo;
+
 public class Settings {
 	
 	public final Integer FPS = 60;
-	public final Integer[] COLOR_FONDOS = { 153, 153, 153, 72, 72, 72 };
+	public final Integer[] COLOR_FONDOS = { 153, 154, 155, 72, 72, 72 };
 	
-	public final Integer TILE_WIDTH = 30;
-	public final Integer TILE_HEIGHT = 30;
+	public final Integer TILE_X = 30;
+	public final Integer TILE_Y = 30;
 	public final Integer TILES_WIDTH = 14;
 	public final Integer TILES_HEIGHT = 20;
+	
+	public final Fondo[][] tileFondo = new Fondo[TILES_HEIGHT][TILES_WIDTH];
 	
 	public HashMap<String, Integer> scores = new HashMap<>();
 	
@@ -126,6 +130,9 @@ public class Settings {
 		private String gameOver = ruta + "gameover.wav";
 		private String levelUp = ruta + "levelup.wav";
 		private String musicaFondo = ruta + "russia-tetris-game-puzzle.wav";
+		private String lineaCrash = ruta + "crash.wav";
+		private String posaPieza1 = ruta + "dieThrow1.wav";
+		private String posaPieza2 = ruta + "dieThrow2.wav";
 		
 		public UrlAudio() {}
 
@@ -159,6 +166,30 @@ public class Settings {
 
 		public void setMusicaFondo(String musicaFondo) {
 			this.musicaFondo = musicaFondo;
+		}
+
+		public String getLineaCrash() {
+			return lineaCrash;
+		}
+
+		public void setLineaCrash(String lineaCrash) {
+			this.lineaCrash = lineaCrash;
+		}
+
+		public String getPosaPieza1() {
+			return posaPieza1;
+		}
+
+		public void setPosaPieza1(String posaPieza1) {
+			this.posaPieza1 = posaPieza1;
+		}
+
+		public String getPosaPieza2() {
+			return posaPieza2;
+		}
+
+		public void setPosaPieza2(String posaPieza2) {
+			this.posaPieza2 = posaPieza2;
 		}
 	}
 }
