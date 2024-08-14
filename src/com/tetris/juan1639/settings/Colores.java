@@ -21,4 +21,5 @@ public class Colores {
 	public static final Integer[] TITULO = {155, 245, 9};
 	public static final Integer[] FONDO = {143, 127, 9};{}
 	public static final Integer[] TXT_NUEVA_PARTIDA = {21, 128, 196};
+	public static final Integer[] BG_HOVER_BOTON_INICIO = {10, 228, 208};
 }

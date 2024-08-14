@@ -3,6 +3,7 @@ package com.tetris.juan1639.logicaPieza;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.settings.Settings;
 
 public class Pieza {
@@ -17,6 +18,8 @@ public class Pieza {
 	private Integer[] colorPieza;
 	private Integer rotacion;
 	private Settings settings;
+	
+	private Sonidos sonido = new Sonidos();
 
 	public Pieza(
 			Integer x,
@@ -106,7 +109,10 @@ public class Pieza {
 					sett.estado.setEnJuego(false);
 					sett.setPausaRejugar(sett.TIEMPO_PAUSA_REJUGAR);
 				}
-
+				
+				sonido.cargarAudio(settings.urlaudio.getPosaPieza1());
+				sonido.playSonido();
+				
 				sett.setOtraPieza(true);
 				sett.setCheckeandoMatriz(true);
 				dejar_rastro(sett);

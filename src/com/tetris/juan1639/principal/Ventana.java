@@ -10,12 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 
 import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
@@ -42,6 +45,8 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	private Marcadores nivel;
 	private Marcadores hi;
 	private Object[] marcadores;
+	
+	JButton botonInicio;
 
 	private Settings settings;
 
@@ -71,10 +76,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	}
 
 	private void comenzar() {
-
-		sonido.cargarAudio(settings.urlaudio.getGameOver());
-		sonido.playSonido();
-
+		
 		Instancias.instanciarMatrizFondo(settings.tileFondo, settings.TILES_HEIGHT, settings.TILES_WIDTH,
 				settings.TILE_X, settings.TILE_Y);
 
@@ -183,7 +185,6 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		
 		Integer[] rgb;
 		JLabel[] layout = new JLabel[12];
-		JButton botonInicio;
 		
 		rgb = Colores.TXT_NUEVA_PARTIDA;
 		
@@ -201,6 +202,40 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 				botonInicio.setFocusable(false);
 				botonInicio.setForeground(new Color(rgb[0], rgb[1], rgb[2]));
 				botonInicio.setBorder(BorderFactory.createLineBorder(Color.BLUE, 1, true));
+				
+				botonInicio.addMouseListener(new MouseAdapter() {
+
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						super.mouseClicked(e);
+						
+						System.out.println("Start game!");
+						resetEstados(false, settings);
+						settings.estado.setEnJuego(true);
+						
+						sonido.cargarAudio(settings.urlaudio.getMusicaFondo());
+						sonido.playSonido();
+					}
+
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						super.mouseEntered(e);
+						
+						Integer[] rgb = Colores.BG_HOVER_BOTON_INICIO;
+						botonInicio.setBackground(new Color(rgb[0], rgb[1], rgb[2]));
+						botonInicio.setFont(new Font("arial", Font.BOLD, settings.SIZE_TXT_NUEVAPARTIDA + 4));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						super.mouseExited(e);
+						
+						Color bgColor = UIManager.getColor("Button.background");
+						botonInicio.setBackground(bgColor);
+						botonInicio.setFont(new Font("arial", Font.BOLD, settings.SIZE_TXT_NUEVAPARTIDA));
+					}
+				});
+				
 				add(botonInicio);
 				
 			} else {
