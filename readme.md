@@ -2,4 +2,4 @@
 
 This is a clon-recreation of the classic game Tetris.
 
-<img src="miniatura-pacClon2.png" alt="game screenshot"/>
+<img src="miniatura-tetrisJava.png" alt="game screenshot"/>
