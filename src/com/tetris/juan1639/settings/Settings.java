@@ -264,6 +264,7 @@ public class Settings {
 		private String lineaCrash = ruta + "crash.wav";
 		private String posaPieza1 = ruta + "dieThrow1.wav";
 		private String posaPieza2 = ruta + "dieThrow2.wav";
+		private String aplausos = ruta + "aplausoseagle.wav";
 		
 		public UrlAudio() {}
 
@@ -329,6 +330,14 @@ public class Settings {
 
 		public void setMusicaFondo2(String musicaFondo2) {
 			this.musicaFondo2 = musicaFondo2;
+		}
+
+		public String getAplausos() {
+			return aplausos;
+		}
+
+		public void setAplausos(String aplausos) {
+			this.aplausos = aplausos;
 		}
 	}
 }

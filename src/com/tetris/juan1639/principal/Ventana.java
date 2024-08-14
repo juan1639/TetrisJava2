@@ -56,6 +56,8 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	public static final String MUSICA_ON = "Musica ON";
 	public static final String MUSICA_OFF = "Musica OFF";
 	
+	private Boolean banderaChecks = false;
+	
 	private AreaTexto areaTxt;
 	public Integer WIDTH_SCREEN;
 	public Integer HEIGHT_SCREEN;
@@ -154,21 +156,26 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	public void actionPerformed(ActionEvent e) {
 
 		// System.out.println("running...");
-		
 		Fondo.check_lineDone(settings);
 		Pieza.gravedadPiezas(settings);
-		pieza.actualiza(settings);
+		pieza.actualiza(settings, this);
 
 		if (settings.getOtraPieza()) {
 			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
 		}
 		
 		if (settings.estado.isGameOver() && sonido.isRunning()) {
-			sonido.detenerSonido();
-			botonInicio.setText(REJUGAR);
 			//System.out.println("detener sonido");
+			sonido.detenerSonido();
 		}
-
+		
+		if (settings.estado.isGameOver() && !banderaChecks) {
+			
+			banderaChecks = true;
+			botonInicio.setText(REJUGAR);
+			checkIfNewRecord(settings);
+		}
+		
 		repaint();
 	}
 
@@ -304,11 +311,40 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			resetEstados(false, settings);
 			settings.estado.setPreJuego(true);
 			
+			resetNuevaPartida(settings);
+			
 			botonInicio.setText(NUEVA_PARTIDA);
 			
 			sonido.detenerSonido();
 			sonido.cargarAudio(settings.urlaudio.getMusicaFondo2());
 			sonido.playSonido();
 		}
+	}
+	
+	private void resetNuevaPartida(Settings sett) {
+		
+		for (Integer i = 0; i < settings.TILES_HEIGHT; i++) {
+			for (Integer ii = 0; ii < settings.TILES_WIDTH; ii++) {
+
+				settings.tileFondo[i][ii].setValor(false);
+			}
+		}
+		
+		sett.setLineas(0);
+		sett.setNivel(1);
+		
+		banderaChecks = false;
+	}
+	
+	public Boolean checkIfNewRecord(Settings sett) {
+		
+		if (sett.getLineas() >= sett.getHiScore()) {
+			
+			sett.setHiScore(sett.getLineas());
+			System.out.println("ENHORABUENA!! Nuevo record");
+			return true;
+		}
+		
+		return false;
 	}
 }

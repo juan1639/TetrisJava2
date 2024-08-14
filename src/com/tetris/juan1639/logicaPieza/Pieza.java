@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
+import com.tetris.juan1639.principal.Ventana;
 import com.tetris.juan1639.settings.Colores;
 import com.tetris.juan1639.settings.Settings;
 import com.tetris.juan1639.utilidades.AreaTexto;
@@ -73,8 +74,7 @@ public class Pieza implements IResetControlesEstados {
 		}
 	}
 	
-	public void actualiza(Settings sett) {
-
+	public void actualiza(Settings sett, Ventana ventana) {
 		
 		if (!sett.estado.isEnJuego()) {
 			return;
@@ -119,8 +119,16 @@ public class Pieza implements IResetControlesEstados {
 					));
 					
 					sonido.detenerSonido();
-					sonido.cargarAudio(sett.urlaudio.getGameOver());
-					sonido.playSonido();
+					
+					if (ventana.checkIfNewRecord(sett)) {
+						
+						sonido.cargarAudio(sett.urlaudio.getAplausos());
+						sonido.playSonido();
+						
+					} else {
+						sonido.cargarAudio(sett.urlaudio.getGameOver());
+						sonido.playSonido();
+					}
 					
 					return;
 				}
