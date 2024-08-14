@@ -93,9 +93,11 @@ public class Fondo {
 					hasta_cuatro = false;
 					break;
 				}
-
 			}
 		}
+		
+		Integer nuevoNivel = (int) Math.floor(sett.getLineas() / 7);
+		sett.setNivel(nuevoNivel + 1);
 		
 		// Para que checkee SOLO una vez lo ponemos a False
 		sett.setCheckeandoMatriz(false);

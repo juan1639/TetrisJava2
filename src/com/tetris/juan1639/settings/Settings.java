@@ -13,6 +13,9 @@ public class Settings {
 	public final Integer TILES_WIDTH = 14;
 	public final Integer TILES_HEIGHT = 20;
 	
+	public final Integer WIDTH_SCREEN = TILE_X * TILES_WIDTH * 2;
+	public final Integer HEIGHT_SCREEN = TILE_Y * TILES_HEIGHT + TILE_Y;
+	
 	public final Fondo[][] tileFondo = new Fondo[TILES_HEIGHT][TILES_WIDTH];
 	
 	public final Integer X_INICIAL = 7;
@@ -28,6 +31,7 @@ public class Settings {
 	private Integer nivel = 1;
 	private Integer hiScore = 27;
 	
+	// (20 niveles):
 	private Integer[] gravedad = {
 		45, 30, 25, 23, 20, 18, 16, 15, 12, 10,
 		10, 8, 7, 5, 5, 3, 3, 3, 2, 2, 1

@@ -11,9 +11,9 @@ public class AreaTexto {
 	private int x;
 	private int y;
 	private String txt;
-	private int[] rgb;
+	private Integer[] rgb;
 
-	public AreaTexto(int size, int x, int y, String txt, int[] rgb) {
+	public AreaTexto(int size, int x, int y, String txt, Integer[] rgb) {
 
 		this.size = size;
 		this.x = x;
@@ -21,10 +21,12 @@ public class AreaTexto {
 		this.txt = txt;
 		this.rgb = rgb;
 	}
+	
+	public AreaTexto() {}
 
 	public void dibuja(Graphics g) {
 		
-		int[] rgb = this.rgb;
+		Integer[] rgb = this.rgb;
 
 		Font fuente = new Font("Helvetica", Font.BOLD, this.size);
 		FontMetrics fm = g.getFontMetrics(fuente);

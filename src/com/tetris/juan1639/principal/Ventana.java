@@ -29,11 +29,14 @@ import com.tetris.juan1639.marcadores.Marcadores;
 import com.tetris.juan1639.settings.Colores;
 import com.tetris.juan1639.settings.PlantillaPiezasFactory;
 import com.tetris.juan1639.settings.Settings;
+import com.tetris.juan1639.utilidades.AreaTexto;
 
 public class Ventana extends JPanel implements ActionListener, IResetControlesEstados {
 
 	private static final long serialVersionUID = 6133593608232968591L;
 
+	private Settings settings;
+	
 	private Timer timer;
 	private Sonidos sonido = new Sonidos();
 
@@ -51,9 +54,11 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	public static final String NUEVA_PARTIDA = "Nueva Partida";
 	public static final String MUSICA_ON = "Musica ON";
 	public static final String MUSICA_OFF = "Musica OFF";
-
-	private Settings settings;
-
+	
+	private AreaTexto areaTxt;
+	public Integer WIDTH_SCREEN;
+	public Integer HEIGHT_SCREEN;
+	
 	public Ventana() {
 
 		inicializa();
@@ -70,9 +75,14 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		setBackground(new Color(rgb[0], rgb[1], rgb[2]));
 
 		setFocusable(true);
-
-		setPreferredSize(new Dimension(settings.TILE_X * settings.TILES_WIDTH * 2,
-				settings.TILE_Y * settings.TILES_HEIGHT + settings.TILE_Y));
+		
+		WIDTH_SCREEN = settings.TILE_X * settings.TILES_WIDTH * 2;
+		HEIGHT_SCREEN = settings.TILE_Y * settings.TILES_HEIGHT + settings.TILE_Y;
+		
+		setPreferredSize(new Dimension(WIDTH_SCREEN, HEIGHT_SCREEN));
+		
+		rgb = Colores.TITULO;
+		areaTxt = new AreaTexto(64, WIDTH_SCREEN / 4, HEIGHT_SCREEN / 2, "TETR1S", rgb);
 		
 		crearBotonInicio();
 		
@@ -129,7 +139,10 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		lineas.dibuja(g, settings.getLineas(), this);
 		nivel.dibuja(g, settings.getNivel(), this);
 		hi.dibuja(g, settings.getHiScore(), this);
-
+		
+		areaTxt.dibuja(g);
+		if (settings.estado.isGameOver()) pieza.getAreaTxt().dibuja(g);
+		
 		Toolkit.getDefaultToolkit().sync();
 	}
 
@@ -251,6 +264,9 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			System.out.println("Start game!");
 			resetEstados(false, settings);
 			settings.estado.setEnJuego(true);
+			
+			Integer[] rgb = Colores.TITULO;
+			areaTxt = new AreaTexto(64, WIDTH_SCREEN / 4, HEIGHT_SCREEN / 2, "", rgb);
 			
 			sonido.cargarAudio(settings.urlaudio.getMusicaFondo());
 			sonido.playSonido();

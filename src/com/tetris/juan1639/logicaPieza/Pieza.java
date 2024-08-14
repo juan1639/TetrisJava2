@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import com.tetris.juan1639.audio.Sonidos;
+import com.tetris.juan1639.interfaces.IResetControlesEstados;
+import com.tetris.juan1639.settings.Colores;
 import com.tetris.juan1639.settings.Settings;
+import com.tetris.juan1639.utilidades.AreaTexto;
 
-public class Pieza {
+public class Pieza implements IResetControlesEstados {
 	
 	public static final Integer ROTACIONES_LOOP = 4;
+	private AreaTexto areaTxt;
 
 	private Integer x;
 	private Integer y;
@@ -104,10 +108,20 @@ public class Pieza {
 				this.y --;
 
 				if (this.y <= sett.Y_INICIAL) {
-
+					
+					resetEstados(false, sett);
 					sett.estado.setGameOver(true);
-					sett.estado.setEnJuego(false);
-					sett.setPausaRejugar(sett.TIEMPO_PAUSA_REJUGAR);
+					//sett.setPausaRejugar(sett.TIEMPO_PAUSA_REJUGAR);
+					
+					Integer[] rgb = Colores.GAMEOVER;
+					setAreaTxt(new AreaTexto(
+							64, sett.WIDTH_SCREEN / 4, sett.HEIGHT_SCREEN / 2, "Game Over", rgb
+					));
+					
+					sonido.cargarAudio(sett.urlaudio.getGameOver());
+					sonido.playSonido();
+					
+					return;
 				}
 				
 				sonido.cargarAudio(settings.urlaudio.getPosaPieza1());
@@ -180,12 +194,14 @@ public class Pieza {
 	}
 
 	public static void gravedadPiezas(Settings sett) {
+		
+		if (!sett.estado.isEnJuego()) {
+			return;
+		}
 
 		Integer[] gravedad = sett.getGravedad();
-		// ***********************************************
-        //Integer nivel = sett.getNivel();
-		Integer nivel = 1;
-		// ***********************************************
+        Integer nivel = sett.getNivel();
+        
         Integer contador = sett.getIncrementoDificultad();
         contador ++;
 
@@ -231,5 +247,13 @@ public class Pieza {
 
 	public void setRotacion(Integer rotacion) {
 		this.rotacion = rotacion;
+	}
+
+	public AreaTexto getAreaTxt() {
+		return areaTxt;
+	}
+
+	public void setAreaTxt(AreaTexto areaTxt) {
+		this.areaTxt = areaTxt;
 	}
 }
