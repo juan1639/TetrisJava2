@@ -260,6 +260,7 @@ public class Settings {
 		private String gameOver = ruta + "gameover.wav";
 		private String levelUp = ruta + "levelup.wav";
 		private String musicaFondo = ruta + "russia-tetris-game-puzzle.wav";
+		private String musicaFondo2 = ruta + "tetris-theme-korobeiniki.wav";
 		private String lineaCrash = ruta + "crash.wav";
 		private String posaPieza1 = ruta + "dieThrow1.wav";
 		private String posaPieza2 = ruta + "dieThrow2.wav";
@@ -320,6 +321,14 @@ public class Settings {
 
 		public void setPosaPieza2(String posaPieza2) {
 			this.posaPieza2 = posaPieza2;
+		}
+
+		public String getMusicaFondo2() {
+			return musicaFondo2;
+		}
+
+		public void setMusicaFondo2(String musicaFondo2) {
+			this.musicaFondo2 = musicaFondo2;
 		}
 	}
 }

@@ -52,6 +52,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	
 	JButton botonInicio;
 	public static final String NUEVA_PARTIDA = "Nueva Partida";
+	public static final String REJUGAR = "Jugar otra vez";
 	public static final String MUSICA_ON = "Musica ON";
 	public static final String MUSICA_OFF = "Musica OFF";
 	
@@ -99,6 +100,9 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 		}
 
 		marcadores = Instancias.instanciarMarcadores(settings, lineas, nivel, hi);
+		
+		sonido.cargarAudio(settings.urlaudio.getMusicaFondo2());
+		sonido.playSonido();
 
 		timer = new Timer((Integer) (1000 / settings.FPS), this);
 		timer.start();
@@ -157,6 +161,12 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 
 		if (settings.getOtraPieza()) {
 			piezas = Instancias.instanciarPieza(settings, pieza, verNextPieza, piezaFactory);
+		}
+		
+		if (settings.estado.isGameOver() && sonido.isRunning()) {
+			sonido.detenerSonido();
+			botonInicio.setText(REJUGAR);
+			//System.out.println("detener sonido");
 		}
 
 		repaint();
@@ -268,6 +278,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			Integer[] rgb = Colores.TITULO;
 			areaTxt = new AreaTexto(64, WIDTH_SCREEN / 4, HEIGHT_SCREEN / 2, "", rgb);
 			
+			sonido.detenerSonido();
 			sonido.cargarAudio(settings.urlaudio.getMusicaFondo());
 			sonido.playSonido();
 			botonInicio.setText(MUSICA_ON);
@@ -287,6 +298,17 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			}
 			
 			return;
+			
+		} else if (settings.estado.isGameOver()) {
+			
+			resetEstados(false, settings);
+			settings.estado.setPreJuego(true);
+			
+			botonInicio.setText(NUEVA_PARTIDA);
+			
+			sonido.detenerSonido();
+			sonido.cargarAudio(settings.urlaudio.getMusicaFondo2());
+			sonido.playSonido();
 		}
 	}
 }

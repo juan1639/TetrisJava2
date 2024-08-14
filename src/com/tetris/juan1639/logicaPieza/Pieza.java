@@ -118,6 +118,7 @@ public class Pieza implements IResetControlesEstados {
 							64, sett.WIDTH_SCREEN / 4, sett.HEIGHT_SCREEN / 2, "Game Over", rgb
 					));
 					
+					sonido.detenerSonido();
 					sonido.cargarAudio(sett.urlaudio.getGameOver());
 					sonido.playSonido();
 					
