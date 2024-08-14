@@ -47,6 +47,9 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	private Object[] marcadores;
 	
 	JButton botonInicio;
+	public static final String NUEVA_PARTIDA = "Nueva Partida";
+	public static final String MUSICA_ON = "Musica ON";
+	public static final String MUSICA_OFF = "Musica OFF";
 
 	private Settings settings;
 
@@ -196,7 +199,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 			if (i == 1) {
 				
 				botonInicio = new JButton();
-				botonInicio.setText("Nueva Partida");
+				botonInicio.setText(NUEVA_PARTIDA);
 				botonInicio.setFont(new Font("arial", Font.BOLD, settings.SIZE_TXT_NUEVAPARTIDA));
 				botonInicio.setEnabled(true);
 				botonInicio.setFocusable(false);
@@ -208,13 +211,7 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						super.mouseClicked(e);
-						
-						System.out.println("Start game!");
-						resetEstados(false, settings);
-						settings.estado.setEnJuego(true);
-						
-						sonido.cargarAudio(settings.urlaudio.getMusicaFondo());
-						sonido.playSonido();
+						distintasFuncionesBotonInicio();
 					}
 
 					@Override
@@ -242,6 +239,36 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 				layout[i] = new JLabel();
 				add(layout[i]);
 			}
+		}
+	}
+	
+	private void distintasFuncionesBotonInicio() {
+		
+		if (settings.estado.isPreJuego()) {
+			
+			System.out.println("Start game!");
+			resetEstados(false, settings);
+			settings.estado.setEnJuego(true);
+			
+			sonido.cargarAudio(settings.urlaudio.getMusicaFondo());
+			sonido.playSonido();
+			botonInicio.setText(MUSICA_ON);
+			
+			return;
+			
+		} else if (settings.estado.isEnJuego()) {
+			
+			if (sonido.isRunning()) {
+				sonido.detenerSonido();
+				botonInicio.setText(MUSICA_OFF);
+				
+				
+			} else {
+				sonido.playSonido();
+				botonInicio.setText(MUSICA_ON);
+			}
+			
+			return;
 		}
 	}
 }
