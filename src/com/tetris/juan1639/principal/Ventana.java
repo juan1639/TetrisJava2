@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 
 import com.tetris.juan1639.audio.Sonidos;
 import com.tetris.juan1639.interfaces.IResetControlesEstados;
+import com.tetris.juan1639.logicaArrayFondo.Fondo;
 import com.tetris.juan1639.logicaPieza.NextPieza;
 import com.tetris.juan1639.logicaPieza.Pieza;
 import com.tetris.juan1639.marcadores.Marcadores;
@@ -136,7 +137,8 @@ public class Ventana extends JPanel implements ActionListener, IResetControlesEs
 	public void actionPerformed(ActionEvent e) {
 
 		// System.out.println("running...");
-
+		
+		Fondo.check_lineDone(settings);
 		Pieza.gravedadPiezas(settings);
 		pieza.actualiza(settings);
 
