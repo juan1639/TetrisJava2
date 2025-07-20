@@ -5,27 +5,29 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-public class AreaTexto {
-	
+public class AreaTexto
+{
 	private int size;
 	private int x;
 	private int y;
 	private String txt;
 	private Integer[] rgb;
 
-	public AreaTexto(int size, int x, int y, String txt, Integer[] rgb) {
-
+	public AreaTexto(int size, int x, int y, String txt, Integer[] rgb)
+	{
 		this.size = size;
 		this.x = x;
 		this.y = y;
 		this.txt = txt;
 		this.rgb = rgb;
 	}
-	
-	public AreaTexto() {}
 
-	public void dibuja(Graphics g) {
-		
+	public AreaTexto()
+	{
+	}
+
+	public void dibuja(Graphics g)
+	{
 		Integer[] rgb = this.rgb;
 
 		Font fuente = new Font("Helvetica", Font.BOLD, this.size);

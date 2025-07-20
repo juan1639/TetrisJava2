@@ -9,25 +9,26 @@ import javax.swing.JPanel;
 
 import com.tetris.juan1639.settings.Settings;
 
-public class Marcadores {
-
-	private static Integer[] colorAreaMarcadores = {89, 89, 89, 180, 181, 182}; 
+public class Marcadores
+{
+	private static Integer[] colorAreaMarcadores =
+	{ 89, 89, 89, 180, 181, 182 };
 
 	private int id;
 	private int[] argsInt;
 	private String[] argsTxt;
 	private Color color;
 
-	public Marcadores(int id, int[] argsInt, String[] argsTxt, Color color) {
-
+	public Marcadores(int id, int[] argsInt, String[] argsTxt, Color color)
+	{
 		this.id = id;
 		this.argsInt = argsInt;
 		this.argsTxt = argsTxt;
 		this.color = color;
 	}
 
-	public void dibuja(Graphics g, Integer valor, JPanel panel) {
-
+	public void dibuja(Graphics g, Integer valor, JPanel panel)
+	{
 		int i = this.id * 3;
 
 		int size = this.argsInt[i];
@@ -49,8 +50,8 @@ public class Marcadores {
 		g.drawString(msg, resX, resY);
 	}
 
-	public static void area_marcadores(Graphics g, int[] argsCoord) {
-
+	public static void area_marcadores(Graphics g, int[] argsCoord)
+	{
 		int margenAreaX = (int) (argsCoord[2] / 70);
 		int margenAreaY = (int) (argsCoord[3] / 40);
 
@@ -67,43 +68,33 @@ public class Marcadores {
 		g.drawRoundRect(x, y, ancho, alto, 16, 16);
 	}
 
-	public static int[] argsInt_instanciaMarcadores(Settings sett) {
+	public static int[] argsInt_instanciaMarcadores(Settings sett)
+	{
+		int[] argsInt =
+		{ (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15), (int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
+				(int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5), (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15),
+				(int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
+				(int) (((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5) * 1.4), (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15),
+				(int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
+				(int) (((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5) * 1.8) };
 
-		int[] argsInt = {
-            (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15),
-            (int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
-            (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5),
-            (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15),
-            (int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
-            (int) (((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5) * 1.4),
-            (int) ((sett.TILES_HEIGHT * sett.TILE_Y) / 15),
-            (int) (((sett.TILES_WIDTH * sett.TILE_X) * 2) / 1.8),
-            (int) (((sett.TILES_HEIGHT * sett.TILE_Y) / 3.5) * 1.8)
-        };
-
-        return argsInt;
+		return argsInt;
 	}
 
-	public static String[] argsString_instanciaMarcadores() {
+	public static String[] argsString_instanciaMarcadores()
+	{
+		String[] argsTxt =
+		{ "Lineas: ", "lineas", "Nivel: ", "nivel", "Record: ", "record" };
 
-		String[] argsTxt = {
-        	"Lineas: ", "lineas",
-        	"Nivel: ", "nivel",
-        	"Record: ", "record"
-        };
-
-        return argsTxt;
+		return argsTxt;
 	}
 
-	public static int[] calculaAreaMarcadoresCoord(Settings sett) {
+	public static int[] calculaAreaMarcadoresCoord(Settings sett)
+	{
+		int[] areaCoord =
+		{ (int) ((sett.TILES_WIDTH * sett.TILE_X) / 2), 0, (int) (sett.TILES_WIDTH * sett.TILE_X),
+				(int) (sett.TILES_HEIGHT * sett.TILE_Y), };
 
-		int [] areaCoord = {
-            (int) ((sett.TILES_WIDTH * sett.TILE_X) / 2),
-            0,
-            (int) (sett.TILES_WIDTH * sett.TILE_X),
-            (int) (sett.TILES_HEIGHT * sett.TILE_Y),            
-        };
-
-        return areaCoord;
+		return areaCoord;
 	}
 }
